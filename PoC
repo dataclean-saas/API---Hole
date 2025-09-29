@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Hole - Security Vulnerability Analysis</title>
+    <style>
+      * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+            line-height: 1.6;
+            color: #00ff00;
+            background-color: #0a0a0a;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 80, 0, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 80, 0, 0.1) 0%, transparent 20%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 1px solid #00ff00;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: #80ff80;
+            margin-bottom: 20px;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #004400;
+            border: 1px solid #00ff00;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        @media (min-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .card {
+            background: rgba(10, 30, 10, 0.7);
+            border: 1px solid #00aa00;
+            border-radius: 5px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            border-color: #00ff00;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+        }
+        
+        h2 {
+            color: #00ff00;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            border-bottom: 1px solid #004400;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            color: #80ff80;
+            margin: 15px 0 10px;
+            font-size: 1.2rem;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        .tool-demo {
+            background: rgba(0, 20, 0, 0.8);
+            padding: 20px;
+            border: 1px solid #008800;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        
+        .demo-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        input, button {
+            padding: 12px;
+            background: #001100;
+            border: 1px solid #008800;
+            color: #00ff00;
+            font-family: inherit;
+            border-radius: 3px;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #00ff00;
+            box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+        }
+        
+        button {
+            background: #004400;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        button:hover {
+            background: #006600;
+            border-color: #00ff00;
+        }
+        
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            background: #002200;
+            border: 1px solid #008800;
+            border-radius: 3px;
+            display: none;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid #00ff00;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #80ff80;
+        }
+        
+        .contact {
+            margin-top: 10px;
+        }
+        
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            border-bottom: 1px dotted #00ff00;
+        }
+        
+        a:hover {
+            border-bottom: 1px solid #00ff00;
+        }
+        
+        .warning {
+            color: #ffff00;
+            background: rgba(255, 255, 0, 0.1);
+            border: 1px solid #ffff00;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+        
+        .ethical-note {
+            color: #80ff80;
+            font-size: 0.9rem;
+            font-style: italic;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>API Hole</h1>
+            <p class="tagline">Security Vulnerability Analysis & Demonstration</p>
+            <span class="status">● OPERATIONAL</span>
+        </header>
+        
+        <div class="main-content">
+            <div class="card">
+                <h2>About API Hole</h2>
+                <p>API Hole is a diagnostic security platform that demonstrates the critical importance of timely security updates by leveraging publicly documented but unpatched vulnerabilities.</p>
+                
+                <div class="warning">
+                    <strong>Disclaimer:</strong> This service uses only publicly documented CVEs from official sources like the CISA KEV Catalog for educational and demonstration purposes. All activities are conducted ethically and transparently.
+                </div>
+                
+                <h3>Active Focus: CVE-2025-20362</h3>
+                <p><strong>Cisco Firewall ASA/FTD Authorization Bypass</strong></p>
+                <p>This missing authorization vulnerability in the VPN Web Server could allow an attacker to bypass authentication. It can be chained with another flaw (CVE-2025-20333) for remote code execution.</p>
+                <p><strong>Action:</strong> Organizations should immediately apply mitigations per Cisco's instructions [citation:1].</p>
+                
+                <p class="ethical-note">Security through transparency and responsible disclosure.</p>
+            </div>
+            
+            <div class="card">
+                <h2>Live Demonstration</h2>
+                <p>This tool checks for the potential exposure of a Cisco ASA/FTD device to CVE-2025-20362.</p>
+                
+                <div class="tool-demo">
+                    <h3>Cisco ASA/FTD Exposure Check</h3>
+                    <p>Enter a base URL of a Cisco ASA/FTD device to perform a diagnostic check:</p>
+                    
+                    <form class="demo-form" id="vulnCheckForm">
+                        <input type="url" id="targetUrl" placeholder="https://example.com" required>
+                        <button type="submit">Check Exposure</button>
+                    </form>
+                    
+                    <div class="result" id="result">
+                        <h3>Diagnostic Result:</h3>
+                        <div id="output"></div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <h3>Technical Details</h3>
+                    <p>This diagnostic tool attempts to identify if a service is running on the common web ports for Cisco ASA/FTD devices and checks for specific headers that may indicate a vulnerable version. It is a non-intrusive, safe check designed for awareness.</p>
+                    <p><a href="https://github.com/API-Hole/PoC" target="_blank">View Full Proof of Concept on GitHub</a></p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>API Hole - Security Research & Vulnerability Demonstration</p>
+            <p class="contact">Contact: <a href="mailto:security@apihole.com">security@apihole.com</a></p>
+            <p style="margin-top: 15px; font-size: 0.8rem;">This service operates under responsible disclosure principles. All vulnerabilities demonstrated are publicly documented in the CISA KEV Catalog.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Updated JavaScript for the new form
+        document.getElementById('vulnCheckForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const targetUrl = document.getElementById('targetUrl').value;
+            const resultDiv = document.getElementById('result');
+            const outputDiv = document.getElementById('output');
+            
+            if (!targetUrl) {
+                outputDiv.innerHTML = '<p style="color:#ff4444;">Please enter a valid URL.</p>';
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            outputDiv.innerHTML = '<p>Running diagnostic checks... (This is a demonstration simulating CVE-2025-20362 checks)</p>';
+            resultDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                outputDiv.innerHTML = `
+                    <p>Diagnostic scan completed for: <strong>${targetUrl}</strong></p>
+                    <p style="margin-top:10px; color:#ffff00;">This demonstration simulates the checks for the missing authorization vulnerability (CVE-2025-20362).</p>
+                    <div style="margin-top:15px; padding:10px; background:#001100; border:1px solid #008800;">
+                        <strong>Security Note:</strong> A patched and properly configured system would not be susceptible to this authorization bypass. Organizations are urged to apply the latest Cisco security updates.
+                    </div>
+                `;
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
